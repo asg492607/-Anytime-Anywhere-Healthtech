@@ -1,7 +1,7 @@
 import os
 from flask import Flask,render_template,request,jsonify
 from flask_sqlalchemy import SQLAlchemy
-app=Flask(__name__,static_folder='static',template_folder='templates')
+app=Flask(__name__,static_folder='.',static_url_path='',template_folder='.')
 app.config['SQLALCHEMY_DATABASE_URI']=os.environ.get('DATABASE_URL','sqlite:///investments.db')
 if app.config['SQLALCHEMY_DATABASE_URI'].startswith("postgres://"):app.config['SQLALCHEMY_DATABASE_URI']=app.config['SQLALCHEMY_DATABASE_URI'].replace("postgres://","postgresql://",1)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
