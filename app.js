@@ -192,8 +192,22 @@ async function fetchUserStrategies() {
             allocationStr = parts.join(', ');
         }
         
-        const profitClass = strategy_item.profit >= 0 ? 'positive' : 'negative';
-        const sign = strategy_item.profit >= 0 ? '+' : '';
+        let profitClass = 'neutral';
+        let sign = '';
+        let statusBadge = '⚪ Breaking Even';
+        let statusColor = '#666';
+        
+        if (strategy_item.profit > 0) {
+            profitClass = 'positive';
+            sign = '+';
+            statusBadge = '🟢 Strategy Working (Profitable)';
+            statusColor = 'var(--accent-secondary)';
+        } else if (strategy_item.profit < 0) {
+            profitClass = 'negative';
+            sign = ''; // negative sign is built into the number natively
+            statusBadge = '🔴 Strategy Failing (Loss)';
+            statusColor = 'var(--danger)';
+        }
         
         strategy_card_element.innerHTML = `
             <div class="item-content" style="width: 100%;">
@@ -205,6 +219,9 @@ async function fetchUserStrategies() {
                             ${sign}$${strategy_item.profit.toFixed(2)} (${sign}${strategy_item.profit_percent.toFixed(2)}%)
                         </div>
                     </div>
+                </div>
+                <div style="font-weight: bold; font-size: 0.9rem; margin: 0.5rem 0; color: ${statusColor};">
+                    ${statusBadge}
                 </div>
                 <p>${strategy_item.description}</p>
                 ${allocationStr ? `<p style="margin-top: 0.5rem; font-size: 0.85rem; background: #eee; padding: 0.2rem 0.5rem; display: inline-block; border-radius: 4px;">Allocations: ${allocationStr}</p>` : ''}
