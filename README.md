@@ -16,13 +16,13 @@ QuantumInvest provides a seamless, single-page application experience for managi
 ## Application Screenshots
 
 ### Market Overview
-![Market Overview](assets/market.png)
+![Market Overview](market.png)
 
 ### Strategy Builder
-![Strategy Builder](assets/strategies.png)
+![Strategy Builder](strategies.png)
 
 ### Wishes & Watchlist
-![Wishes](assets/wishes.png)
+![Wishes](wishes.png)
 
 ## Technology Stack
 
