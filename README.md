@@ -16,13 +16,13 @@ QuantumInvest provides a seamless, single-page application experience for managi
 ## Application Screenshots
 
 ### Market Overview
-![Market Overview](https://placehold.co/800x400/f4f7f6/333333?text=Market+Overview+Dashboard)
+![Market Overview](assets/market.png)
 
 ### Strategy Builder
-![Strategy Builder](https://placehold.co/800x400/f4f7f6/333333?text=Dynamic+Strategy+Builder)
+![Strategy Builder](assets/strategies.png)
 
 ### Wishes & Watchlist
-![Wishes](https://placehold.co/800x400/f4f7f6/333333?text=Wishes+and+Watchlist)
+![Wishes](assets/wishes.png)
 
 ## Technology Stack
 
