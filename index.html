@@ -8,14 +8,12 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- Main Navigation -->
         <header class="glass-header">
             <div class="logo">QuantumInvest</div>
             <nav>
                 <a href="#market" class="active">Market</a>
                 <a href="#strategies">Strategies</a>
                 <a href="#wishes">Wishes</a>
-                <!-- New Simulate Button -->
                 <button id="btn-simulate" class="btn-primary" style="margin-left: 2rem; width: auto; background: var(--accent-secondary);">
                     Simulate Next Day &#9658;
                 </button>
@@ -23,25 +21,21 @@
         </header>
 
         <main>
-            <!-- Market Section -->
             <section id="market" class="active-section">
                 <div class="section-header">
                     <h2>Live Market Overview</h2>
                     <p>Track top performing company shares</p>
                 </div>
                 <div class="grid-container" id="market-grid">
-                    <!-- Populated dynamically via JS -->
                 </div>
             </section>
 
-            <!-- Strategies Section -->
             <section id="strategies">
                 <div class="section-header">
                     <h2>Investment Strategies</h2>
                     <p>Design and manage your portfolio allocations (Total must = 100%)</p>
                 </div>
                 <div class="content-split">
-                    <!-- Strategy Creation Form -->
                     <div class="form-card">
                         <h3>Create New Strategy</h3>
                         <form id="strategy-form">
@@ -57,7 +51,6 @@
                             <div class="input-group">
                                 <label>Allocations</label>
                                 <div id="allocation-container">
-                                    <!-- Dynamic rows go here -->
                                 </div>
                                 <button type="button" id="btn-add-allocation" style="margin-top: 0.5rem; padding: 0.4rem; cursor: pointer;">
                                     + Add Stock
@@ -68,21 +61,17 @@
                             <button type="submit" class="btn-primary">Save Strategy</button>
                         </form>
                     </div>
-                    <!-- Strategy List -->
                     <div class="list-container grid-list" id="strategies-list">
-                        <!-- Populated dynamically via JS -->
                     </div>
                 </div>
             </section>
 
-            <!-- Wishes Section -->
             <section id="wishes">
                 <div class="section-header">
                     <h2>Your Wishes & Goals</h2>
                     <p>Set target prices and watchlists for your favorite companies</p>
                 </div>
                 <div class="content-split">
-                    <!-- Wish Creation Form -->
                     <div class="form-card">
                         <h3>Make a Wish</h3>
                         <form id="wish-form">
@@ -101,9 +90,7 @@
                             <button type="submit" class="btn-primary">Add Wish</button>
                         </form>
                     </div>
-                    <!-- Wishes List -->
                     <div class="list-container grid-list" id="wishes-list">
-                        <!-- Populated dynamically via JS -->
                     </div>
                 </div>
             </section>

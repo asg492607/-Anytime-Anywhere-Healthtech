@@ -6,7 +6,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, static_folder='.', static_url_path='', template_folder='.')
 
-# Database Configuration
 database_url = os.environ.get('DATABASE_URL', 'sqlite:///investments.db')
 if database_url.startswith("postgres://"):
     database_url = database_url.replace("postgres://", "postgresql://", 1)
@@ -16,7 +15,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# Models
 class Stock(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     ticker = db.Column(db.String(10), unique=True, nullable=False)
@@ -38,10 +36,7 @@ class InvestmentStrategy(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=True)
-    # Stored as a JSON string: {"AAPL": 50, "MSFT": 50}
     allocations = db.Column(db.Text, nullable=False, default="{}")
-    
-    # Financial performance
     start_value = db.Column(db.Float, nullable=False, default=10000.0)
     current_value = db.Column(db.Float, nullable=False, default=10000.0)
 
@@ -73,11 +68,9 @@ class UserWish(db.Model):
             "notes": self.notes
         }
 
-# Initial Data Setup
 with app.app_context():
     db.create_all()
     
-    # Initialize Stocks if empty
     if not Stock.query.first():
         initial_stocks = [
             {"ticker": "ACM", "name": "Acme Corp", "price": 150.25},
@@ -95,7 +88,6 @@ with app.app_context():
             db.session.add(Stock(ticker=s['ticker'], name=s['name'], price=s['price']))
         db.session.commit()
 
-# Routes
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -109,8 +101,6 @@ def get_stocks():
 def manage_strategies():
     if request.method == 'POST':
         data = request.json
-        
-        # Validations
         name = data.get('name')
         if not name:
             return jsonify({"error": "Name is required"}), 400
@@ -163,36 +153,26 @@ def delete_wish(id):
 
 @app.route('/api/simulate', methods=['POST'])
 def simulate_market():
-    # 1. Randomize stock prices (e.g. between -5% and +5%)
     stocks = Stock.query.all()
-    stock_changes = {} # To hold the multiplier for this simulation tick
+    stock_changes = {}
     
     for stock in stocks:
-        # Generate a random change between -5.0% and +5.0%
         change_pct = random.uniform(-5.0, 5.0)
         stock.change_percent = change_pct
-        
         multiplier = 1 + (change_pct / 100.0)
         stock.price = stock.price * multiplier
-        
         stock_changes[stock.ticker] = multiplier
         
     db.session.commit()
     
-    # 2. Update strategy values based on their allocations
     strategies = InvestmentStrategy.query.all()
     for strat in strategies:
         allocs = json.loads(strat.allocations)
-        
-        # Calculate new value:
-        # E.g. if 50% was in AAPL, and AAPL went up 5%
-        # The fraction of the portfolio in AAPL goes up by 5%
         new_value = 0
+        
         for ticker, percent in allocs.items():
             weight = float(percent) / 100.0
             portion_value = strat.current_value * weight
-            
-            # Apply the stock's multiplier for this turn
             mult = stock_changes.get(ticker, 1.0)
             new_value += (portion_value * mult)
             

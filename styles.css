@@ -29,7 +29,6 @@ body {
     padding: 2rem;
 }
 
-/* Header */
 .glass-header {
     display: flex;
     justify-content: space-between;
@@ -56,7 +55,6 @@ nav a:hover, nav a.active {
     color: var(--accent-primary);
 }
 
-/* Sections */
 section {
     display: none;
 }
@@ -78,7 +76,6 @@ section.active-section {
     color: var(--text-secondary);
 }
 
-/* Cards & Layout */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -104,7 +101,6 @@ section.active-section {
     }
 }
 
-/* Typography & Details */
 .stock-header {
     display: flex;
     justify-content: space-between;
@@ -120,7 +116,6 @@ section.active-section {
 .change.positive { color: var(--accent-secondary); }
 .change.negative { color: var(--danger); }
 
-/* Forms */
 .form-card h3 {
     margin-bottom: 1rem;
 }
@@ -159,7 +154,6 @@ input, textarea {
     background: #004494;
 }
 
-/* Lists */
 .list-item {
     margin-bottom: 1rem;
     display: flex;

@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Navigation Logic
     const navigation_links = document.querySelectorAll('nav a');
     const application_sections = document.querySelectorAll('section');
 
@@ -20,12 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 2. Fetch Initial Data
     fetchMarketStocks();
     fetchUserStrategies();
     fetchUserWishes();
 
-    // 3. Dynamic Strategy Form Logic
     const allocContainer = document.getElementById('allocation-container');
     const btnAddAlloc = document.getElementById('btn-add-allocation');
 
@@ -49,17 +46,14 @@ document.addEventListener('DOMContentLoaded', () => {
         allocContainer.appendChild(row);
     }
     
-    // Start with one row
     addAllocationRow();
     btnAddAlloc.addEventListener('click', addAllocationRow);
 
-    // 4. Strategy Form Submission
     document.getElementById('strategy-form').addEventListener('submit', async (form_submit_event) => {
         form_submit_event.preventDefault();
         const errorDiv = document.getElementById('strat-error');
         errorDiv.style.display = 'none';
         
-        // Gather allocations
         const allocs = {};
         let total = 0;
         const rows = document.querySelectorAll('.alloc-row');
@@ -94,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (strategy_api_response.ok) {
             form_submit_event.target.reset();
             allocContainer.innerHTML = '';
-            addAllocationRow(); // reset rows
+            addAllocationRow();
             fetchUserStrategies();
         } else {
             const errData = await strategy_api_response.json();
@@ -103,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 5. Wish Form Submission
     document.getElementById('wish-form').addEventListener('submit', async (form_submit_event) => {
         form_submit_event.preventDefault();
         const wish_form_data = {
@@ -124,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 6. Simulate Market Button
     document.getElementById('btn-simulate').addEventListener('click', async () => {
         const btn = document.getElementById('btn-simulate');
         btn.disabled = true;
@@ -132,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         await fetch('/api/simulate', { method: 'POST' });
         
-        // Refresh all data
         await fetchMarketStocks();
         await fetchUserStrategies();
         
@@ -182,7 +173,6 @@ async function fetchUserStrategies() {
         const strategy_card_element = document.createElement('div');
         strategy_card_element.className = 'list-item';
         
-        // Format allocations JSON into a readable string
         let allocationStr = '';
         if (strategy_item.allocations && Object.keys(strategy_item.allocations).length > 0) {
             const parts = [];
@@ -204,7 +194,7 @@ async function fetchUserStrategies() {
             statusColor = 'var(--accent-secondary)';
         } else if (strategy_item.profit < 0) {
             profitClass = 'negative';
-            sign = ''; // negative sign is built into the number natively
+            sign = '';
             statusBadge = '🔴 Strategy Failing (Loss)';
             statusColor = 'var(--danger)';
         }
